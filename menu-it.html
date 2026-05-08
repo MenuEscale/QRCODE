@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>L'Escale — Menu Italiano</title>
+<style>
+
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap');
+  :root{--cream:#fdf6ec;--dark:#1a1208;--gold:#c8952a;--gold-light:#e8b84b;--red:#9b2335;--warm:#f5e6c8;--shadow:rgba(26,18,8,.18)}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Lato',sans-serif;background:var(--cream);color:var(--dark);min-height:100vh}
+  .menu-header{background:linear-gradient(160deg,#1a1208,#3d2507 70%);padding:2rem 1.5rem 1.5rem;text-align:center;position:sticky;top:0;z-index:100;box-shadow:0 4px 20px var(--shadow)}
+  .header-top{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:1rem}
+  .menu-header h1{font-family:'Playfair Display',serif;color:var(--gold-light);font-size:clamp(1.4rem,4vw,2.2rem);letter-spacing:.05em}
+  .menu-header .tagline{color:#c8a06a;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase}
+  .lang-switch-btn{position:absolute;right:1rem;top:50%;transform:translateY(-50%);background:rgba(200,149,42,.15);border:1px solid rgba(200,149,42,.4);color:var(--gold-light);border-radius:8px;padding:.4rem .8rem;font-size:.75rem;text-decoration:none;display:inline-block;letter-spacing:.05em;transition:all .3s;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+  .lang-switch-btn:hover{background:rgba(200,149,42,.3)}
+  .nav-tabs{display:flex;overflow-x:auto;gap:.5rem;padding:.5rem 1rem;scrollbar-width:none;justify-content:center;flex-wrap:wrap}
+  .nav-tab{background:transparent;border:1.5px solid rgba(200,149,42,.3);color:#c8a06a;border-radius:20px;padding:.4rem 1rem;font-size:.8rem;cursor:pointer;white-space:nowrap;transition:all .3s;font-family:'Lato',sans-serif;letter-spacing:.05em;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+  .nav-tab.active,.nav-tab:hover{background:var(--gold);color:var(--dark);border-color:var(--gold);font-weight:700}
+  .menu-content{padding:1.5rem 1rem 4rem;max-width:900px;margin:0 auto}
+  .section{display:none}.section.active{display:block}
+  .section-title{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,4vw,2.2rem);color:var(--red);margin-bottom:.3rem}
+  .section-subtitle{color:var(--gold);font-size:.85rem;letter-spacing:.15em;text-transform:uppercase;margin-bottom:1.5rem}
+  .section-divider{height:2px;background:linear-gradient(90deg,var(--gold),transparent);margin-bottom:1.8rem}
+  .item-card{display:flex;justify-content:space-between;align-items:flex-start;padding:1rem 0;border-bottom:1px solid rgba(200,149,42,.15);gap:1rem}
+  .item-card:last-child{border-bottom:none}
+  .item-name{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--dark);margin-bottom:.25rem}
+  .item-desc{color:#6b5232;font-size:.85rem;line-height:1.5;font-style:italic}
+  .item-price{font-weight:700;color:var(--red);white-space:nowrap;font-size:.95rem;padding:.2rem .6rem;background:rgba(155,35,53,.07);border-radius:6px;margin-top:.1rem}
+  .pizza-table-wrap{overflow-x:auto;margin-bottom:1rem}
+  .pizza-table{width:100%;border-collapse:collapse;font-size:.85rem}
+  .pizza-table th{background:linear-gradient(135deg,var(--gold),#a06d1a);color:#fff;padding:.6rem .8rem;text-align:left;font-weight:700;letter-spacing:.05em}
+  .pizza-table th:last-child,.pizza-table td:last-child{text-align:right}
+  .pizza-table tr:nth-child(even){background:rgba(200,149,42,.06)}
+  .pizza-table tr:hover{background:rgba(200,149,42,.12)}
+  .pizza-table td{padding:.6rem .8rem;border-bottom:1px solid rgba(200,149,42,.1)}
+  .pizza-table .td-name{font-weight:700;font-family:'Playfair Display',serif}
+  .pizza-table .td-desc{color:#6b5232;font-style:italic;font-size:.8rem}
+  .pizza-table .td-price{color:var(--red);font-weight:700;white-space:nowrap}
+  .pizza-section-label{background:linear-gradient(135deg,var(--red),#7a1828);color:#fff;font-family:'Playfair Display',serif;font-size:1rem;padding:.5rem 1rem;border-radius:6px;margin:1.2rem 0 .6rem;display:inline-block}
+  .supplement-box{background:rgba(200,149,42,.08);border:1px dashed rgba(200,149,42,.4);border-radius:8px;padding:.8rem 1rem;margin:1rem 0;font-size:.85rem;color:#5a3e1b}
+  .supplement-box strong{color:var(--gold);display:block;margin-bottom:.3rem}
+  .formula-box{background:linear-gradient(135deg,rgba(155,35,53,.08),rgba(200,149,42,.08));border-left:4px solid var(--gold);border-radius:0 12px 12px 0;padding:1.2rem 1.5rem;margin:1rem 0}
+  .formula-box h3{font-family:'Playfair Display',serif;color:var(--red);font-size:1.1rem;margin-bottom:.4rem}
+  .formula-box .formula-price{font-size:1.4rem;font-weight:700;color:var(--gold);margin-top:.5rem}
+  .ice-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin:1rem 0}
+  .ice-item{background:linear-gradient(135deg,rgba(200,149,42,.08),rgba(155,35,53,.05));border:1px solid rgba(200,149,42,.2);border-radius:10px;padding:.8rem;text-align:center}
+  .ice-item .balls{font-size:1.5rem}
+  .ice-item .price{font-weight:700;color:var(--red);font-size:.9rem}
+  .drink-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.8rem}
+  .drink-card{display:flex;justify-content:space-between;align-items:center;background:rgba(200,149,42,.06);border:1px solid rgba(200,149,42,.15);border-radius:8px;padding:.7rem 1rem}
+  .drink-name{font-size:.9rem;color:var(--dark)}
+  .drink-price{font-weight:700;color:var(--red);font-size:.9rem}
+  .back-top{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--gold);color:var(--dark);border:none;border-radius:50%;width:44px;height:44px;font-size:1.2rem;cursor:pointer;box-shadow:0 4px 14px rgba(200,149,42,.5);display:none;transition:all .3s;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+  .back-top.visible{display:flex;align-items:center;justify-content:center}
+  .back-top:hover{transform:translateY(-3px)}
+
+</style>
+</head>
+<body>
+<header class="menu-header">
+  <div style="position:relative">
+    <div class="header-top">
+      <span style="font-size:1.6rem"></span>
+      <div>
+        <h1>L'Escale</h1>
+        <p class="tagline">Pizzeria · Ristorante</p>
+      </div>
+    </div>
+    <a class="lang-switch-btn" href="index.html">🌐 Lingua</a>
+  </div>
+  <nav class="nav-tabs">
+    <button class="nav-tab active" onclick="showSection('salades')">Insalate</button>
+<button class="nav-tab" onclick="showSection('pates')">Pasta</button>
+<button class="nav-tab" onclick="showSection('accompagnements')">Contorni</button>
+<button class="nav-tab" onclick="showSection('viandes')">Carni</button>
+<button class="nav-tab" onclick="showSection('pizzas')">Pizze</button>
+<button class="nav-tab" onclick="showSection('boissons')">Bevande</button>
+<button class="nav-tab" onclick="showSection('desserts')">Dolci</button>
+<button class="nav-tab" onclick="showSection('menus_sec')">Menu</button>
+
+  </nav>
+</header>
+<main class="menu-content">
+  <div class="section active" id="sec-salades">
+  <div class="section-title">Insalate</div>
+  <div class="section-subtitle">Freschezza &amp; Sapori</div>
+  <div class="section-divider"></div>
+  <div class="item-card">
+  <div><div class="item-name">Esotica</div><div class="item-desc">Ananas, avocado, pomodori, prosciutto di Parma</div></div>
+  <div class="item-price">14,50 €</div>
+</div>
+<div class="item-card">
+  <div><div class="item-name">Golosa</div><div class="item-desc">Ventriccioli confit, filetti d'anatra, crostini</div></div>
+  <div class="item-price">14,50 €</div>
+</div>
+<div class="item-card">
+  <div><div class="item-name">Oceanica</div><div class="item-desc">Avocado, surimi, pomodori, uova, salmone, crema al limone</div></div>
+  <div class="item-price">15,50 €</div>
+</div>
+<div class="item-card">
+  <div><div class="item-name">Guipryenne</div><div class="item-desc">Pomodori, patate saltate, pancetta, formaggio</div></div>
+  <div class="item-price">15,50 €</div>
+</div>
+<div class="item-card">
+  <div><div class="item-name">Capra Calda</div><div class="item-desc">Capra calda, filetto d'anatra, pera, noci, miele</div></div>
+  <div class="item-price">14,00 €</div>
+</div>
+<div class="item-card">
+  <div><div class="item-name">Insalata Creola</div><div class="item-desc">Straccetti di pollo, ananas, peperoni, pomodori, uova</div></div>
+  <div class="item-price">14,50 €</div>
+</div>
+<div class="item-card">
+  <div><div class="item-name">Insalata della Baia</div><div class="item-desc">Capesante, pancetta, funghi, salsa lampone</div></div>
+  <div class="item-price">16,00 €</div>
+</div>
+
+</div><div class="section" id="sec-pates">
+  <div class="section-title">Pasta</div>
+  <div class="section-subtitle">Fatto in Casa</div>
+  <div class="section-divider"></div>
+  <div class="item-card">
+  <div><div class="item-name">Tagliatelle ai Funghi</div><div class="item-desc">Pancetta, funghi, cipolle, panna</div></div>
+  <div class="item-price">14,00 €</div>
+</div>
+<div class="item-card">
+  <div><div class="item-name">Tagliatelle Carbonara</div><div class="item-desc">Pancetta, prosciutto, panna</div></div>
+  <div class="item-price">14,00 €</div>
+</div>
+<div class="item-card">
+  <div><div class="item-name">Tagliatelle con Capesante</div><div class="item-desc">Salsa panna flambata al whisky</div></div>
+  <div class="item-price">17,00 €</div>
+</div>
+<div class="item-card">
+  <div><div class="item-name">Tagliatelle al Salmone Affumicato</div><div class="item-desc">Salsa panna al limone</div></div>
+  <div class="item-price">16,00 €</div>
+</div>
+<div class="item-card">
+  <div><div class="item-name">Linguine Bolognese</div><div class="item-desc">Carne macinata, sugo di pomodoro</div></div>
+  <div class="item-price">13,00 €</div>
+</div>
+<div class="item-card">
+  <div><div class="item-name">Linguine del Sole</div><div class="item-desc">Pancetta, chorizo, cipolle, peperoni, panna</div></div>
+  <div class="item-price">15,00 €</div>
+</div>
+<div class="item-card">
+  <div><div class="item-name">Lasagne Salmone e Porri</div><div class="item-desc">Gratinate al forno a legna</div></div>
+  <div class="item-price">16,00 €</div>
+</div>
+<div class="item-card">
+  <div><div class="item-name">Lasagne Pancetta e Prosciutto</div><div class="item-desc">Gratinate al forno a legna</div></div>
+  <div class="item-price">14,50 €</div>
+</div>
+
+</div><div class="section" id="sec-accompagnements">
+  <div class="section-title">Contorni</div>
+  <div class="section-subtitle">Per completare il pasto</div>
+  <div class="section-divider"></div>
+  <div class="item-card">
+  <div><div class="item-name">Tagliere Aperitivo</div><div class="item-desc">Salumi</div></div>
+  <div class="item-price">8,50 €</div>
+</div>
+<div class="item-card">
+  <div><div class="item-name">Tagliere Nordico</div><div class="item-desc">Salmone affumicato, crema al limone</div></div>
+  <div class="item-price">9,50 €</div>
+</div>
+<div class="item-card">
+  <div><div class="item-name">Patatine Fritte</div><div class="item-desc">Semplice e goloso</div></div>
+  <div class="item-price">3,00 €</div>
+</div>
+<div class="item-card">
+  <div><div class="item-name">Insalata Verde</div><div class="item-desc">Fresca e leggera</div></div>
+  <div class="item-price">2,50 €</div>
+</div>
+
+</div><div class="section" id="sec-viandes">
+  <div class="section-title">Carni</div>
+  <div class="section-subtitle">Grigliate &amp; Scaloppine</div>
+  <div class="section-divider"></div>
+  <div class="item-card">
+  <div><div class="item-name">Entrecôte</div><div class="item-desc">Circa 300 g – a scelta: roquefort, maître d'hôtel, gorgonzola, béarnaise o pepe verde</div></div>
+  <div class="item-price">22,00 €</div>
+</div>
+<div class="item-card">
+  <div><div class="item-name">Bavetta con Scalogno</div><div class="item-desc">Circa 180 g</div></div>
+  <div class="item-price">20,00 €</div>
+</div>
+<div class="item-card">
+  <div><div class="item-name">Scaloppina Milanese</div><div class="item-desc">Noce di vitello panata, circa 180 g</div></div>
+  <div class="item-price">21,00 €</div>
+</div>
+<div class="item-card">
+  <div><div class="item-name">Scaloppina Fiorentina</div><div class="item-desc">Noce di vitello panata, funghi, marsala, panna – circa 180 g</div></div>
+  <div class="item-price">22,00 €</div>
+</div>
+<div class="item-card">
+  <div><div class="item-name">Scaloppina Bolognese</div><div class="item-desc">Gratinata al forno a legna, noce di vitello panata, bolognese, parmigiano – circa 180 g</div></div>
+  <div class="item-price">21,00 €</div>
+</div>
+<div class="item-card">
+  <div><div class="item-name">Scaloppina Viennese</div><div class="item-desc">Gratinata al forno a legna, noce di vitello panata, emmental, mozzarella, reblochon – circa 180 g</div></div>
+  <div class="item-price">22,00 €</div>
+</div>
+
+</div><div class="section" id="sec-pizzas">
+  <div class="section-title">Pizze</div>
+  <div class="section-subtitle">Dal forno a legna</div>
+  <div class="section-divider"></div>
+  <div class="pizza-section-label">I Classici</div>
+<div class="pizza-table-wrap"><table class="pizza-table">
+<thead><tr><th></th><th>∅ 25cm</th><th>∅ 29cm</th></tr></thead>
+<tbody><tr><td><div class="td-name">Neptune</div><div class="td-desc">Pomodoro, prosciutto, mozzarella, origano</div></td><td class="td-price">7,50 €</td><td class="td-price">8,50 €</td></tr>
+<tr><td><div class="td-name">Margherita</div><div class="td-desc">Pomodoro, mozzarella, origano</div></td><td class="td-price">7,50 €</td><td class="td-price">8,50 €</td></tr>
+<tr><td><div class="td-name">Romana</div><div class="td-desc">Pomodoro, acciughe, capperi, mozzarella, origano</div></td><td class="td-price">9,50 €</td><td class="td-price">10,50 €</td></tr>
+<tr><td><div class="td-name">Royale</div><div class="td-desc">Pomodoro, prosciutto, funghi, mozzarella, origano</div></td><td class="td-price">9,00 €</td><td class="td-price">10,00 €</td></tr>
+<tr><td><div class="td-name">Vegetariana</div><div class="td-desc">Pomodoro, carciofo, funghi, peperoni, pomodori freschi, mozzarella, origano</div></td><td class="td-price">12,50 €</td><td class="td-price">13,50 €</td></tr>
+<tr><td><div class="td-name">Contadina</div><div class="td-desc">Pomodoro, prosciutto, pancetta, cipolle, mozzarella, origano</div></td><td class="td-price">12,50 €</td><td class="td-price">13,50 €</td></tr>
+<tr><td><div class="td-name">Calzone</div><div class="td-desc">Pomodoro, funghi, pancetta, mozzarella, prosciutto, uovo, origano</div></td><td class="td-price">12,50 €</td><td class="td-price">13,50 €</td></tr>
+<tr><td><div class="td-name">Campagnola</div><div class="td-desc">Pomodoro, pancetta, fonduta di porri, panna, origano</div></td><td class="td-price">12,00 €</td><td class="td-price">13,00 €</td></tr>
+</tbody>
+</table></div><div class="pizza-section-label">Formaggi</div>
+<div class="pizza-table-wrap"><table class="pizza-table">
+<thead><tr><th></th><th>∅ 25cm</th><th>∅ 29cm</th></tr></thead>
+<tbody><tr><td><div class="td-name">Quattro Formaggi</div><div class="td-desc">Pomodoro, roquefort, gorgonzola, capra, mozzarella, origano</div></td><td class="td-price">12,50 €</td><td class="td-price">13,50 €</td></tr>
+<tr><td><div class="td-name">Savoiarda</div><div class="td-desc">Pomodoro, prosciutto di campagna, patata, reblochon, mozzarella, panna, origano</div></td><td class="td-price">12,50 €</td><td class="td-price">13,50 €</td></tr>
+<tr><td><div class="td-name">Raclette</div><div class="td-desc">Pomodoro, prosciutto di campagna, patata, formaggio raclette, mozzarella, panna, origano</div></td><td class="td-price">12,50 €</td><td class="td-price">13,50 €</td></tr>
+<tr><td><div class="td-name">Tartiflette</div><div class="td-desc">Pomodoro, pancetta, cipolle, patata, mozzarella, panna, origano</div></td><td class="td-price">12,50 €</td><td class="td-price">13,50 €</td></tr>
+<tr><td><div class="td-name">Montana</div><div class="td-desc">Pomodoro, prosciutto di campagna, funghi, mozzarella, capra, origano</div></td><td class="td-price">12,50 €</td><td class="td-price">13,50 €</td></tr>
+<tr><td><div class="td-name">Roma</div><div class="td-desc">Panna, mozzarella, camembert, pancetta affumicata, miele, origano</div></td><td class="td-price">12,00 €</td><td class="td-price">13,00 €</td></tr>
+<tr><td><div class="td-name">Brochita</div><div class="td-desc">Pomodoro, mozzarella, pancetta affumicata, capra, miele, origano</div></td><td class="td-price">12,50 €</td><td class="td-price">13,50 €</td></tr>
+<tr><td><div class="td-name">L'Italienne</div><div class="td-desc">Pomodoro, mozzarella, rucola, pomodorini, burrata d'Ambroisi, scaglie di Parmigiano Reggiano, prosciutto di Parma</div></td><td class="td-price">15,90 €</td><td class="td-price">16,90 €</td></tr>
+</tbody>
+</table></div><div class="pizza-section-label">Dal Mare</div>
+<div class="pizza-table-wrap"><table class="pizza-table">
+<thead><tr><th></th><th>∅ 25cm</th><th>∅ 29cm</th></tr></thead>
+<tbody><tr><td><div class="td-name">Napoletana</div><div class="td-desc">Pomodoro, cipolle, capperi, mozzarella, acciughe, olive, origano</div></td><td class="td-price">13,50 €</td><td class="td-price">14,50 €</td></tr>
+<tr><td><div class="td-name">Tour de Pise</div><div class="td-desc">Pomodoro, pancetta, funghi, capesante, prezzemolo, origano</div></td><td class="td-price">15,00 €</td><td class="td-price">16,00 €</td></tr>
+<tr><td><div class="td-name">Delmare</div><div class="td-desc">Pomodoro, capesante, mozzarella, prezzemolo, gamberetti, origano</div></td><td class="td-price">15,50 €</td><td class="td-price">16,50 €</td></tr>
+<tr><td><div class="td-name">Nordica</div><div class="td-desc">Pomodoro, salmone affumicato, panna, mozzarella, origano</div></td><td class="td-price">14,50 €</td><td class="td-price">15,50 €</td></tr>
+<tr><td><div class="td-name">Meridionale</div><div class="td-desc">Pomodoro, capesante, mozzarella, pomodori freschi, prezzemolo, origano</div></td><td class="td-price">15,50 €</td><td class="td-price">16,50 €</td></tr>
+<tr><td><div class="td-name">Elvetica</div><div class="td-desc">Pomodoro, fonduta di porri, salmone affumicato, panna fresca, origano</div></td><td class="td-price">13,00 €</td><td class="td-price">14,00 €</td></tr>
+</tbody>
+</table></div><div class="pizza-section-label">Specialità</div>
+<div class="pizza-table-wrap"><table class="pizza-table">
+<thead><tr><th></th><th>∅ 25cm</th><th>∅ 29cm</th></tr></thead>
+<tbody><tr><td><div class="td-name">Martinicana</div><div class="td-desc">Pomodoro, prosciutto, ananas, mozzarella, origano</div></td><td class="td-price">11,50 €</td><td class="td-price">12,50 €</td></tr>
+<tr><td><div class="td-name">Messacoise</div><div class="td-desc">Pomodoro, prosciutto di Parma, funghi, mozzarella, panna, origano</div></td><td class="td-price">12,50 €</td><td class="td-price">13,50 €</td></tr>
+<tr><td><div class="td-name">Pizz Burger</div><div class="td-desc">Pomodoro, carne macinata bolognese, mozzarella, origano</div></td><td class="td-price">12,50 €</td><td class="td-price">13,50 €</td></tr>
+<tr><td><div class="td-name">Messicana</div><div class="td-desc">Pomodoro, merguez, mozzarella, peperoni, chorizo, olive, origano</div></td><td class="td-price">12,50 €</td><td class="td-price">13,50 €</td></tr>
+<tr><td><div class="td-name">Orientale</div><div class="td-desc">Pomodoro, carne kebab, cipolle, mozzarella, pomodori freschi, salsa kebab, origano</div></td><td class="td-price">12,50 €</td><td class="td-price">13,50 €</td></tr>
+<tr><td><div class="td-name">Caliméro</div><div class="td-desc">Pomodoro, straccetti di pollo, cipolle, patata, mozzarella, panna, origano</div></td><td class="td-price">12,50 €</td><td class="td-price">13,50 €</td></tr>
+<tr><td><div class="td-name">Guémené</div><div class="td-desc">Pomodoro, patata, cipolle, salsa senape, mozzarella, andouille, origano</div></td><td class="td-price">14,00 €</td><td class="td-price">15,00 €</td></tr>
+<tr><td><div class="td-name">Picotta</div><div class="td-desc">Panna, pollo, cipolle, chorizo, mozzarella, salsa barbecue, origano</div></td><td class="td-price">12,50 €</td><td class="td-price">13,50 €</td></tr>
+<tr><td><div class="td-name">Périgordina</div><div class="td-desc">Pomodoro, ventriccioli, filetti d'anatra, mozzarella, aceto di lampone, origano</div></td><td class="td-price">—</td><td class="td-price">14,90 €</td></tr>
+<tr><td><div class="td-name">Indiana</div><div class="td-desc">Pomodoro, straccetti di pollo, ananas, mozzarella, peperoni, panna al curry, origano</div></td><td class="td-price">12,50 €</td><td class="td-price">13,50 €</td></tr>
+</tbody>
+</table></div><div class="supplement-box"><strong>+ Supplementi</strong><div>• Capesante, Salmone o Burrata: 3,50 €</div><div>• Salse, Parmigiano: 1,50 € a scelta</div><div>• Ingrediente extra: 1,50 €</div><div>• Insalata verde: 2,50 €</div></div>
+</div><div class="section" id="sec-boissons">
+  <div class="section-title">Bevande</div>
+  <div class="section-subtitle">Alla vostra salute!</div>
+  <div class="section-divider"></div>
+  <div class="drink-grid"><div class="drink-card"><span class="drink-name">Americano della casa</span><span class="drink-price">6,00 €</span></div>
+<div class="drink-card"><span class="drink-name">Aperitivo della casa 12 cl</span><span class="drink-price">3,80 €</span></div>
+<div class="drink-card"><span class="drink-name">Ricard / Pastis</span><span class="drink-price">3,40 €</span></div>
+<div class="drink-card"><span class="drink-name">Whisky 4 cl</span><span class="drink-price">4,80 €</span></div>
+<div class="drink-card"><span class="drink-name">Marsala / Porto</span><span class="drink-price">3,30 €</span></div>
+<div class="drink-card"><span class="drink-name">Martini bianco / rosso</span><span class="drink-price">3,30 €</span></div>
+<div class="drink-card"><span class="drink-name">Kir 12 cl</span><span class="drink-price">3,00 €</span></div>
+</div>
+</div><div class="section" id="sec-desserts">
+  <div class="section-title">Dolci</div>
+  <div class="section-subtitle">Il tocco finale</div>
+  <div class="section-divider"></div>
+  <div class="item-card">
+  <div><div class="item-name">Tiramisù</div><div class="item-desc">Al caramello salato al burro</div></div>
+  <div class="item-price">7,00 €</div>
+</div>
+<div class="item-card">
+  <div><div class="item-name">Brioche perduta</div><div class="item-desc">Con gelato alla vaniglia</div></div>
+  <div class="item-price">7,00 €</div>
+</div>
+<div class="item-card">
+  <div><div class="item-name">Tarte Tatin</div><div class="item-desc">Con gelato alla vaniglia</div></div>
+  <div class="item-price">7,00 €</div>
+</div>
+<div class="item-card">
+  <div><div class="item-name">Fondente al cioccolato</div><div class="item-desc">Con crema inglese</div></div>
+  <div class="item-price">7,00 €</div>
+</div>
+<div class="item-card">
+  <div><div class="item-name">Profiteroles</div><div class="item-desc">2 bignè</div></div>
+  <div class="item-price">7,00 €</div>
+</div>
+<div class="item-card">
+  <div><div class="item-name">Profiteroles</div><div class="item-desc">3 bignè</div></div>
+  <div class="item-price">8,00 €</div>
+</div>
+<div class="item-card">
+  <div><div class="item-name">Crème brûlée</div></div>
+  <div class="item-price">7,00 €</div>
+</div>
+<div class="item-card">
+  <div><div class="item-name">Torrone glacé</div><div class="item-desc">Con coulis di frutti rossi</div></div>
+  <div class="item-price">7,00 €</div>
+</div>
+<div class="item-card">
+  <div><div class="item-name">Caffè gourmand</div><div class="item-desc">Tiramisù caramello salato, panna cotta lampone, tortino al cioccolato, dolcetti</div></div>
+  <div class="item-price">7,50 €</div>
+</div>
+<div class="item-card">
+  <div><div class="item-name">Piatto di formaggi</div><div class="item-desc">A seconda delle disponibilità</div></div>
+  <div class="item-price">8,00 €</div>
+</div>
+<div class="item-card">
+  <div><div class="item-name">Dame blanche</div></div>
+  <div class="item-price">7,00 €</div>
+</div>
+<div class="item-card">
+  <div><div class="item-name">Liégeois cioccolato / caffè / caramello</div></div>
+  <div class="item-price">7,00 €</div>
+</div>
+<div class="item-card">
+  <div><div class="item-name">Pesca o fragola Melba</div><div class="item-desc">Secondo la stagione</div></div>
+  <div class="item-price">7,00 €</div>
+</div>
+<div class="item-card">
+  <div><div class="item-name">Colonel</div><div class="item-desc">Gelato lime e vodka</div></div>
+  <div class="item-price">7,50 €</div>
+</div>
+<div class="item-card">
+  <div><div class="item-name">After Eight</div><div class="item-desc">Gelato menta e Peppermint</div></div>
+  <div class="item-price">7,50 €</div>
+</div>
+<div class="item-card">
+  <div><div class="item-name">Banana Split / Banana Breizh</div></div>
+  <div class="item-price">7,50 €</div>
+</div>
+<div class="item-card">
+  <div><div class="item-name">Guérandaise</div><div class="item-desc">2 palline caramello, speculoos, panna, coulis caramello salato</div></div>
+  <div class="item-price">7,00 €</div>
+</div>
+<div class="item-card">
+  <div><div class="item-name">Estivale</div><div class="item-desc">Passion, limone, arancia, coulis di frutti rossi</div></div>
+  <div class="item-price">7,00 €</div>
+</div>
+<div class="item-card">
+  <div><div class="item-name">Antillaise</div><div class="item-desc">2 palline rum-uvetta, panna, coulis caffè e uvetta</div></div>
+  <div class="item-price">7,00 €</div>
+</div>
+
+  <div style="margin:1.5rem 0 .5rem">
+    <div class="section-title" style="font-size:1.2rem">🍦 Gelati</div>
+    <p style="color:#6b5232;font-size:.85rem;font-style:italic;margin:.5rem 0 1rem">Gusti: vaniglia, caramello salato, cioccolato, caffè, passion, lime, cocco, arancia, rum-uvetta, menta cioccolato, fragola o lampone</p>
+    <div class="ice-grid"><div class="ice-item"><div class="balls">🍨</div><div style="font-size:.85rem;margin:.3rem 0">1 pallina</div><div class="price">2,20 €</div></div>
+<div class="ice-item"><div class="balls">🍨🍨</div><div style="font-size:.85rem;margin:.3rem 0">2 palline</div><div class="price">4,10 €</div></div>
+<div class="ice-item"><div class="balls">🍨🍨🍨</div><div style="font-size:.85rem;margin:.3rem 0">3 palline</div><div class="price">6,00 €</div></div>
+</div>
+    <div class="supplement-box" style="margin-top:.8rem"><strong>Supplementi</strong>Panna, cioccolato, caffè, caramello salato, Smarties: 1,50 €</div>
+  </div>
+</div><div class="section" id="sec-menus_sec">
+  <div class="section-title">Menu</div>
+  <div class="section-subtitle">Le nostre formule</div>
+  <div class="section-divider"></div>
+  <div class="formula-box">
+  <h3>👶 Menu Bambino</h3>
+  <div style="color:#6b5232;font-size:.9rem;line-height:1.8;margin:.5rem 0"><div>• ½ Pizza Nettuno o Prosciutto, patatine</div><div>• 1 Gelato bambino</div><div>• 1 Acqua / Coca / Oasis</div></div>
+  <div class="formula-price">9,50 €</div>
+</div>
+  <div class="formula-box">
+  <h3>☀️ Menu del Giorno</h3>
+  <div style="color:#6b5232;font-size:.9rem;line-height:1.8;margin:.5rem 0"><div>• Da mercoledì a venerdì a pranzo</div><div>• Piatto o Pizza + Dolce del giorno + Caffè</div></div>
+  <div class="formula-price">14,50 €</div>
+</div>
+</div>
+</main>
+<button class="back-top" id="back-top">↑</button>
+<script>
+
+function showSection(k) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById('sec-' + k).classList.add('active');
+  document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
+  var tabs = document.querySelectorAll('.nav-tab');
+  var keys = ['salades','pates','accompagnements','viandes','pizzas','boissons','desserts','menus_sec'];
+  tabs[keys.indexOf(k)].classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+document.getElementById('back-top').addEventListener('click', function() {
+  window.scrollTo({top:0, behavior:'smooth'});
+});
+document.getElementById('back-top').addEventListener('touchend', function(e) {
+  e.preventDefault();
+  window.scrollTo({top:0, behavior:'smooth'});
+});
+window.addEventListener('scroll', function() {
+  document.getElementById('back-top').classList.toggle('visible', window.scrollY > 300);
+});
+
+</script>
+</body>
+</html>

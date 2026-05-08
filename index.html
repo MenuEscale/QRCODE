@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>L'Escale - Pizzeria</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap');
+  :root{--cream:#fdf6ec;--dark:#1a1208;--gold:#c8952a;--gold-light:#e8b84b;--red:#9b2335;--warm:#f5e6c8;}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Lato',sans-serif;background:var(--cream);color:var(--dark);min-height:100vh}
+  #lang-screen{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    min-height:100vh;
+    background:linear-gradient(160deg,#1a1208 0%,#3d2507 55%,#6b3a10 100%);
+    padding:2rem;position:relative;overflow:hidden;
+  }
+  #lang-screen::before{
+    content:'';position:absolute;inset:0;
+    background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c8952a' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity:.5;pointer-events:none;
+  }
+  .lang-logo{text-align:center;margin-bottom:3rem;position:relative;z-index:2}
+  .lang-logo .anchor{font-size:3rem;margin-bottom:.5rem;display:block;filter:drop-shadow(0 0 12px var(--gold))}
+  .lang-logo h1{font-family:'Playfair Display',serif;color:var(--gold-light);font-size:clamp(2rem,6vw,3.5rem);letter-spacing:.05em}
+  .lang-logo p{color:#c8a06a;font-size:1rem;letter-spacing:.2em;text-transform:uppercase;margin-top:.3rem}
+  .lang-divider{width:80px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:1rem auto}
+  .lang-prompt{color:#c8a06a;font-size:.95rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:2rem;position:relative;z-index:2}
+  .lang-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;max-width:650px;width:100%;position:relative;z-index:2}
+  .lang-btn{
+    background:rgba(255,255,255,.05);border:1.5px solid rgba(200,149,42,.35);border-radius:12px;
+    padding:1.2rem 1rem;cursor:pointer;text-align:center;transition:all .3s ease;
+    color:#fff;position:relative;overflow:hidden;
+    user-select:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation;
+    text-decoration:none;display:block;
+  }
+  .lang-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--gold),var(--red));opacity:0;transition:opacity .3s}
+  .lang-btn:hover::before,.lang-btn:focus::before,.lang-btn:active::before{opacity:1}
+  .lang-btn:hover,.lang-btn:focus,.lang-btn:active{border-color:var(--gold);transform:translateY(-3px);box-shadow:0 8px 25px rgba(200,149,42,.3);outline:none}
+  .lang-btn .flag{font-size:2rem;display:block;position:relative;z-index:1}
+  .lang-btn .name{display:block;font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;margin-top:.5rem;position:relative;z-index:1}
+</style>
+</head>
+<body>
+<div id="lang-screen">
+  <div class="lang-logo">
+    <span class="anchor"></span>
+    <h1>L'Escale</h1>
+    <div class="lang-divider"></div>
+    <p>Pizzeria · Restaurant</p>
+  </div>
+  <p class="lang-prompt">Choisissez votre langue</p>
+  <div class="lang-grid">
+    <a class="lang-btn" href="menu-fr.html"><span class="flag">🇫🇷</span><span class="name">Français</span></a>
+    <a class="lang-btn" href="menu-it.html"><span class="flag">🇮🇹</span><span class="name">Italiano</span></a>
+    <a class="lang-btn" href="menu-en.html"><span class="flag">🇬🇧</span><span class="name">English</span></a>
+    <a class="lang-btn" href="menu-de.html"><span class="flag">🇩🇪</span><span class="name">Deutsch</span></a>
+    <a class="lang-btn" href="menu-es.html"><span class="flag">🇪🇸</span><span class="name">Español</span></a>
+  </div>
+</div>
+</body>
+</html>
